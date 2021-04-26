@@ -1,37 +1,31 @@
 import React , {Component} from 'react';
-import { Button, Text, View,StyleSheet,PermissionsAndroid,StatusBar} from 'react-native';
+import { Button, Text, View,PermissionsAndroid,StatusBar} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import style from "./styles/style";
+
 import Tuner from "./tuner";
 import Note from "./note";
 import Meter from "./meter";
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
+    <View style={style.body}>
+      <Text>Giulia!</Text>
     </View>
   );
 }
 
 function SettingsScreen({ navigation }, ciao) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={style.body}>
       <Text>Settings!</Text>
     </View>
   );
 }
 
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-    
-    <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}
 const Tab = createBottomTabNavigator();
 class TunerApp {
   state = {
@@ -63,7 +57,6 @@ class TunerApp {
       }
     };
   }
-  
 }
 
 export default function App() {
@@ -71,22 +64,11 @@ export default function App() {
     <NavigationContainer>
     <Tab.Navigator>
     
-    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Giulia" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   </NavigationContainer>
   );
 }
-const style = StyleSheet.create({
-  body: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  frequency: {
-    fontSize: 28,
-    color: "#37474f",
-  },
-})
 
 ;
