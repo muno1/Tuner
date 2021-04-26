@@ -10,15 +10,15 @@ import Tuner from "./tuner";
 import Note from "./note";
 import Meter from "./meter";
 
-function HomeScreen({ navigation }) {
+function TunerScreen({ navigation }) {
   return (
     <View style={style.body}>
-      <Text>Giulia!</Text>
+      <Text>Tuner!</Text>
     </View>
   );
 }
 
-function SettingsScreen({ navigation }, ciao) {
+function SettingsScreen({ navigation }) {
   return (
     <View style={style.body}>
       <Text>Settings!</Text>
@@ -64,7 +64,7 @@ export default function App() {
     <NavigationContainer>
     <Tab.Navigator>
     
-    <Tab.Screen name="Giulia" component={HomeScreen} />
+    <Tab.Screen name="Tuner" component={TunerScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   </NavigationContainer>
