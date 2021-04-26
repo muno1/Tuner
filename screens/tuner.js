@@ -1,9 +1,13 @@
+
+import React ,{useState} from 'react';
 import Recording from "react-native-recording";
 import PitchFinder from "pitchfinder";
 
-export default class Tuner {
+
+
+ export default class Tuner {
   middleA = 440;
-  semitone = 88;
+  semitone =69;
   noteStrings = [
     "C",
     "C♯",
@@ -19,7 +23,7 @@ export default class Tuner {
     "B",
   ];
 
-  constructor(sampleRate = 22050, bufferSize = 2048) {
+  constructor(sampleRate = 44050, bufferSize = 2048) {
     this.sampleRate = sampleRate;
     this.bufferSize = bufferSize;
     this.pitchFinder = new PitchFinder.YIN({ sampleRate: this.sampleRate });
@@ -80,4 +84,8 @@ export default class Tuner {
         Math.log(2)
     );
   }
-}
+
+ 
+  }
+
+

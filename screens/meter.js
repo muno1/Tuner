@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import { View, StyleSheet, Animated } from "react-native";
 
 export default class Meter extends PureComponent {

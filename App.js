@@ -1,40 +1,82 @@
-import React , {Component} from 'react';
-import { Button, Text, View,PermissionsAndroid,StatusBar} from 'react-native';
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  PermissionsAndroid,
+} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'; 
+import Note from "./screens/note";
+import Meter from "./screens/meter";
+import Tuner from "./screens/tuner";
+import Inharmonicity from "./screens/inharmonicity"
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+const Tab = createMaterialBottomTabNavigator();
 
-import style from "./styles/style";
-
-import Tuner from "./tuner";
-import Note from "./note";
-import Meter from "./meter";
-
-function TunerScreen({ navigation }) {
+function HomeScreen({ navigation }) {
   return (
-    <View style={style.body}>
-      <Text>Tuner!</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home!</Text>
+      <Text>shiu</Text>
     </View>
   );
 }
 
 function SettingsScreen({ navigation }) {
   return (
-    <View style={style.body}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Settings!</Text>
     </View>
   );
 }
 
-const Tab = createBottomTabNavigator();
-class TunerApp {
-  state = {
+function MyTabs() {
+  return (
+    
+        
+        <Tab.Navigator 
+        initialRouteName="Home"
+        activeColor="#fff"
+        barStyle={{ backgroundColor: 'blue' }}
+      >
+
+        <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="home" color={color} size={26} />
+              ),
+            }}
+          />
+
+        <Tab.Screen
+            name="Settings"
+            component={Inharmonicity}
+            options={{
+              tabBarLabel: 'Settings',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="dots-horizontal-circle" color={color} size={26} />
+              ),
+            }}
+    />
+
+    </Tab.Navigator>
+  );
+}
+export default class App extends Component {
+ 
+state = {
     note: {
       name: "A",
       octave: 4,
       frequency: 440,
     },
   };
+  
 
   _update(note) {
     this.setState({ note });
@@ -57,18 +99,40 @@ class TunerApp {
       }
     };
   }
+
+  render() {
+    return (
+      
+        <NavigationContainer>
+          <View style={style.body}>
+        <StatusBar backgroundColor="#000" translucent />
+        <Meter cents={this.state.note.cents} />
+        <Note {...this.state.note} />
+        <Text style={style.frequency}>
+          {this.state.note.frequency.toFixed(1)} Hz
+        </Text>
+      </View>
+         <MyTabs/>
+
+        </NavigationContainer>
+        
+
+       
+    );
+  }
 }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-    <Tab.Navigator>
+const style = StyleSheet.create({
+  body: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor:"purple",
     
-    <Tab.Screen name="Tuner" component={TunerScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  </NavigationContainer>
-  );
-}
+  },
+  frequency: {
+    fontSize: 28,
+    color: "#37474f",
+  },
+});
 
-;
