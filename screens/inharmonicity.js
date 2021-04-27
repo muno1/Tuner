@@ -48,14 +48,14 @@ class Inputs extends Component {
             <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Frequency (Hz)"
-               placeholderTextColor = "#9a73ef"
+               placeholderTextColor = "#fff"
                autoCapitalize = "none"
                onChangeText = {frequency=>this.setState({frequency})}/>
             
             <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Length (mm)"
-               placeholderTextColor = "#9a73ef"
+               placeholderTextColor = "#fff"
                autoCapitalize = "none"
                onChangeText = {length=>this.setState({length})}/>
 
@@ -63,7 +63,7 @@ class Inputs extends Component {
 <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Diameter (mm)"
-               placeholderTextColor = "#9a73ef"
+               placeholderTextColor = "#fff"
                autoCapitalize = "none"
                onChangeText = {diameter=>this.setState({diameter})}/>
             
@@ -82,21 +82,39 @@ export default Inputs
 
 const styles = StyleSheet.create({
    container: {
-      paddingTop: 23
+      paddingTop: 50
+      
    },
    input: {
       margin: 15,
       height: 40,
-      borderColor: '#7a42f4',
-      borderWidth: 1
+      borderColor: 'red',
+      borderWidth: 1,
+      borderRadius:10,
+      borderWidth: 1,
+      borderColor: 'red'
    },
    submitButton: {
-      backgroundColor: '#7a42f4',
+      backgroundColor: 'red',
       padding: 10,
       margin: 15,
       height: 40,
+      borderRadius:10,
+      borderWidth: 1,
+      borderColor: '#fff'
    },
    submitButtonText:{
-      color: 'white'
+      color: 'white',
+      textAlign:'center'
    }
 })
+
+export const header = {
+   // background
+   headerStyle: {
+     backgroundColor: "black",
+     flex :1,
+     justifyContent: "center",
+     alignItems: "center"
+   },
+}

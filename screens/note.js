@@ -22,12 +22,12 @@ const style = StyleSheet.create({
   name: {
     fontSize: 128,
     fontWeight: "600",
-    color: "#c62828",
+    color: "red",
     flexDirection: "row",
   },
   sharp: {
     fontSize: 32,
-    color: "#c62828",
+    color: "red",
     position: "absolute",
     right: 0,
     top: 32,
@@ -40,11 +40,9 @@ const style = StyleSheet.create({
   },
   octave: {
     fontSize: 32,
-    color: "#c62828",
+    color: "red",
     position: "absolute",
     right: 0,
     bottom: 0,
   },
 });
-
-

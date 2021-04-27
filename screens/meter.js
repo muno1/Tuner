@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 10,
-    backgroundColor: "#37474f",
+    backgroundColor: "red",
   },
   pointer: {
     borderTopWidth: 195,
@@ -71,7 +71,7 @@ const style = StyleSheet.create({
     width: 1,
     height: 400,
     borderTopWidth: 10,
-    borderTopColor: "#37474f",
+    borderTopColor: "red",
     marginLeft: 4.5,
   },
   strong: {

@@ -8,19 +8,16 @@ import {
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'; 
-import Note from "./screens/note";
-import Meter from "./screens/meter";
-import Tuner from "./screens/tuner";
+import TunerView from "./screens/tunerView"
 import Inharmonicity from "./screens/inharmonicity"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import BeatsScreen from "./screens/beatsScreen"
 const Tab = createMaterialBottomTabNavigator();
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-      <Text>shiu</Text>
-    </View>
+    
+    <TunerView/>
   );
 }
 
@@ -30,6 +27,9 @@ function SettingsScreen({ navigation }) {
       <Text>Settings!</Text>
     </View>
   );
+
+
+
 }
 
 function MyTabs() {
@@ -37,9 +37,9 @@ function MyTabs() {
     
         
         <Tab.Navigator 
-        initialRouteName="Home"
+        
         activeColor="#fff"
-        barStyle={{ backgroundColor: 'blue' }}
+        barStyle={{ backgroundColor: 'white' }}
       >
 
         <Tab.Screen
@@ -48,7 +48,18 @@ function MyTabs() {
             options={{
               tabBarLabel: 'Home',
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
+                <MaterialCommunityIcons name="home" color="red" size={26} />
+              ),
+            }}
+          />
+
+        <Tab.Screen
+            name="Beats"
+            component={BeatsScreen}
+            options={{
+              tabBarLabel: 'Beats',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="blur-radial" color="red" size={26} />
               ),
             }}
           />
@@ -59,7 +70,7 @@ function MyTabs() {
             options={{
               tabBarLabel: 'Settings',
               tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="dots-horizontal-circle" color={color} size={26} />
+                <MaterialCommunityIcons name="cog" color="red" size={26} />
               ),
             }}
     />
@@ -69,51 +80,13 @@ function MyTabs() {
 }
 export default class App extends Component {
  
-state = {
-    note: {
-      name: "A",
-      octave: 4,
-      frequency: 440,
-    },
-  };
-  
-
-  _update(note) {
-    this.setState({ note });
-  }
-
-  async componentDidMount() {
-    if (Platform.OS === "android") {
-      await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-      ]);
-    }
-
-    const tuner = new Tuner();
-    tuner.start();
-    tuner.onNoteDetected = (note) => {
-      if (this._lastNoteName === note.name) {
-        this._update(note);
-      } else {
-        this._lastNoteName = note.name;
-      }
-    };
-  }
-
   render() {
     return (
       
         <NavigationContainer>
-          <View style={style.body}>
-        <StatusBar backgroundColor="#000" translucent />
-        <Meter cents={this.state.note.cents} />
-        <Note {...this.state.note} />
-        <Text style={style.frequency}>
-          {this.state.note.frequency.toFixed(1)} Hz
-        </Text>
-      </View>
-         <MyTabs/>
-
+               
+        
+        <MyTabs/>
         </NavigationContainer>
         
 
@@ -122,12 +95,14 @@ state = {
   }
 }
 
+
+
 const style = StyleSheet.create({
-  body: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"purple",
+    backgroundColor:"#c000",
     
   },
   frequency: {
