@@ -1,40 +1,39 @@
 import React from "react";
-import {NavigationContainer} from "react-navigation";
+import { NavigationContainer } from "react-navigation";
 
-
-const Tabs =() =>(
-    <NavigationContainer>
-    <Tab.Navigator 
-    initialRouteName="Home"
-    activeColor="#fff"
-    barStyle={{ backgroundColor: 'blue' }}
-  >
-
-    <Tab.Screen
+const Tabs = () => (
+  <NavigationContainer>
+    <Tab.Navigator
+      initialRouteName="Home"
+      activeColor="#fff"
+      barStyle={{ backgroundColor: "blue" }}
+    >
+      <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
       />
 
-    <Tab.Screen
+      <Tab.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: "Settings",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="dots-horizontal-circle" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="dots-horizontal-circle"
+              color={color}
+              size={26}
+            />
           ),
         }}
-/>
-
-
-</Tab.Navigator>
-</NavigationContainer>
-
+      />
+    </Tab.Navigator>
+  </NavigationContainer>
 );
 export default Tabs;

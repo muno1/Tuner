@@ -1,13 +1,10 @@
-
-import React ,{useState} from 'react';
+import React, { useState } from "react";
 import Recording from "react-native-recording";
 import PitchFinder from "pitchfinder";
 
-
-
- export default class Tuner {
+export default class Tuner {
   middleA = 440;
-  semitone =69;
+  semitone = 69;
   noteStrings = [
     "C",
     "C♯",
@@ -84,8 +81,4 @@ import PitchFinder from "pitchfinder";
         Math.log(2)
     );
   }
-
- 
-  }
-
-
+}
