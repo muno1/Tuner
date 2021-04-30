@@ -20,7 +20,7 @@ export default class Tuner {
     "B",
   ];
 
-  constructor(sampleRate = 44050, bufferSize = 2048) {
+  constructor(sampleRate = 44100, bufferSize = 2048) {
     this.sampleRate = sampleRate;
     this.bufferSize = bufferSize;
     this.pitchFinder = new PitchFinder.YIN({ sampleRate: this.sampleRate });
