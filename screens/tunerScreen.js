@@ -22,18 +22,4 @@ const TunerScreen = (props) => {
   );
 };
 
-export const header = {
-  // background
-  headerStyle: {
-    backgroundColor: "black",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  frequency: {
-    fontSize: 28,
-    color: "#37474f",
-  },
-};
-
 export default TunerScreen;
