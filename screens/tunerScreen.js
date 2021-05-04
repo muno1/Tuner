@@ -11,15 +11,27 @@ import {
 } from "react-native";
 /** Foglio di stile */
 import style from "../styles/style";
-const TunerScreen = (props) => {
-  return (
-    <View>
-      <StatusBar backgroundColor="#fff" translucent />
-      <Meter cents={props.note.cents} />
-      <Note {...props.note} />
-      <Text style={style.frequency}>{props.note.frequency.toFixed(1)} Hz</Text>
-    </View>
-  );
+import { connect } from "react-redux";
+
+class TunerScreen extends Component {
+  render() {
+    return (
+      <View>
+        <StatusBar backgroundColor="#fff" translucent />
+        <Meter cents={this.props.note.cents} />
+        <Note {...this.props.note} />
+        <Text style={style.frequency}>
+          {this.props.note.frequency.toFixed(1)} Hz
+        </Text>
+      </View>
+    );
+  }
+}
+
+/** Mappa lo stato (store) con le props, cosi' da poterle usare nel componente. */
+const mapStateToProps = (state) => {
+  const { note } = state;
+  return { note };
 };
 
-export default TunerScreen;
+export default connect(mapStateToProps)(TunerScreen);

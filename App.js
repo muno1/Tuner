@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import redux, { createStore } from "redux";
 import {
   View,
   Text,
@@ -11,15 +12,39 @@ import style from "./styles/style";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import TunerScreen from "./screens/tunerScreen";
+import TunerScreen from "./screens/TunerScreen";
 import Inharmonicity from "./screens/inharmonicity";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BeatsScreen from "./screens/beatsScreen";
+import { Provider } from "react-redux";
 
 import Tuner from "./src/tuner";
-import Meter from "./src/components/meter";
-import Note from "./src/components/note";
 const Tab = createMaterialBottomTabNavigator();
+
+/** Stato iniziale dell'app */
+const initialState = {
+  note: {
+    name: "A",
+    octave: 4,
+    frequency: 440,
+  },
+};
+
+/** Reducer
+ *  - Permette di cambiare lo stato dell'applicazione in base ad un'azione, definita da una stringa e un valore.
+ *    Tramite lo switch case, eseguiamo l'azione corrispondente.
+ */
+const noteReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "changeNote":
+      return { ...state, note: action.value };
+    default:
+      return state;
+  }
+};
+
+/** Creazione dello stato dell'app. */
+let store = createStore(noteReducer);
 
 /*  Tabs of screen */
 // function MyTabs() {
@@ -61,15 +86,6 @@ const Tab = createMaterialBottomTabNavigator();
 //   );
 // }
 export default class App extends Component {
-  /** Stato dell'App (nota) */
-  state = {
-    note: {
-      name: "A",
-      octave: 4,
-      frequency: 440,
-    },
-  };
-
   /** Quando il componente viene montato */
   async componentDidMount() {
     /*  Permessi di registrazione android */
@@ -91,15 +107,20 @@ export default class App extends Component {
     };
   }
 
+  /** Con il dispatch mandiamo il comando di cambiare lo stato. */
   _update(note) {
-    this.setState({ note });
+    store.dispatch({ type: "changeNote", value: note });
   }
 
+  /** Il provider contiene lo store e i componenti figli possono vederlo. */
   render() {
     return (
       <View style={style.headerStyle}>
-        <TunerScreen note={this.state.note} />
+        <Provider store={store}>
+          <TunerScreen />
+        </Provider>
       </View>
+
       // <NavigationContainer>
       //   <MyTabs />
       // </NavigationContainer>
