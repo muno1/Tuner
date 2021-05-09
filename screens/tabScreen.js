@@ -1,7 +1,14 @@
 import React from "react";
-import { NavigationContainer } from "react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
 
-const Tabs = () => (
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+
+
+
+
+function Tabs  (){
+  return (
   <NavigationContainer>
     <Tab.Navigator
       initialRouteName="Home"
@@ -10,7 +17,7 @@ const Tabs = () => (
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={TunerScreen}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -21,7 +28,7 @@ const Tabs = () => (
 
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={BeatsScreen}
         options={{
           tabBarLabel: "Settings",
           tabBarIcon: ({ color }) => (
@@ -34,6 +41,6 @@ const Tabs = () => (
         }}
       />
     </Tab.Navigator>
-  </NavigationContainer>
-);
+  </NavigationContainer>);
+} 
 export default Tabs;

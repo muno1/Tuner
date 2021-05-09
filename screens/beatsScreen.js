@@ -6,23 +6,15 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-
+import style from "../styles/style";
 export default class Beats extends Component {
   render() {
     return (
-      <View style={header.headerStyle}>
-        <Text>Beats</Text>
+      <View style={style.body}>
+        <TouchableOpacity></TouchableOpacity>
       </View>
     );
   }
 }
 
-export const header = {
-  // background
-  headerStyle: {
-    backgroundColor: "black",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-};
+

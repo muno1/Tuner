@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-
+import style from "../styles/style";
 class Inputs extends Component {
   constructor(props) {
     super(props);
@@ -44,12 +44,12 @@ class Inputs extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.body}>
         <TextInput
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="Frequency (Hz)"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#000"
           autoCapitalize="none"
           onChangeText={(frequency) => this.setState({ frequency })}
         />
@@ -58,7 +58,7 @@ class Inputs extends Component {
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="Length (mm)"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#000"
           autoCapitalize="none"
           onChangeText={(length) => this.setState({ length })}
         />
@@ -67,7 +67,7 @@ class Inputs extends Component {
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="Diameter (mm)"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#000"
           autoCapitalize="none"
           onChangeText={(diameter) => this.setState({ diameter })}
         />
@@ -91,20 +91,22 @@ class Inputs extends Component {
 export default Inputs;
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
+    flex:1,
     paddingTop: 50,
+    backgroundColor:"white",
   },
   input: {
     margin: 15,
     height: 40,
-    borderColor: "red",
+    
     borderWidth: 1,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "red",
+    borderColor: "black",
   },
   submitButton: {
-    backgroundColor: "red",
+    backgroundColor: "black",
     padding: 10,
     margin: 15,
     height: 40,

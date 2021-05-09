@@ -50,33 +50,39 @@ const style = StyleSheet.create({
   meter: {
     height: 200,
     marginBottom: 40,
+    marginLeft: 40,
+    
+
   },
   origin: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    width: 10,
-    height: 10,
-    borderRadius: 10,
-    backgroundColor: "red",
+    width: 15,
+    height: 15,
+    borderRadius: 15,
+    backgroundColor: "black",
+    marginLeft: -36,
   },
   pointer: {
     borderTopWidth: 195,
   },
   scale: {
     position: "absolute",
+    textAlign:"center",
     left: 0,
     right: 0,
     width: 1,
     height: 400,
     borderTopWidth: 10,
-    borderTopColor: "red",
-    marginLeft: 4.5,
+    borderTopColor: "black",
+    marginLeft: -30,
   },
   strong: {
     width: 2,
     borderTopWidth: 20,
+    
   },
   scale_1: {
     transform: [{ rotate: "-9deg" }],

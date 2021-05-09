@@ -1,24 +1,31 @@
-import React, { Component } from "react";
+import React, {Component,useState } from "react";
 import redux, { createStore } from "redux";
 import {
   View,
+  Button,
   Text,
   StatusBar,
   StyleSheet,
   PermissionsAndroid,
+  NavigatorIOS,
 } from "react-native";
 /** Foglio di stile */
 import style from "./styles/style";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import TunerScreen from "./screens/TunerScreen";
+import TunerScreen from "./screens/tunerScreen";
 import Inharmonicity from "./screens/inharmonicity";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BeatsScreen from "./screens/beatsScreen";
-import { Provider } from "react-redux";
 
+import { Provider } from "react-redux";
+import TabScreen from "./screens/tabScreen"
 import Tuner from "./src/tuner";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { Switch, TouchableOpacity } from "react-native-gesture-handler";
+
+
+
 const Tab = createMaterialBottomTabNavigator();
 
 /** Stato iniziale dell'app */
@@ -46,45 +53,51 @@ const noteReducer = (state = initialState, action) => {
 /** Creazione dello stato dell'app. */
 let store = createStore(noteReducer);
 
+
 /*  Tabs of screen */
-// function MyTabs() {
-//   return (
-//     <Tab.Navigator activeColor="#fff" barStyle={{ backgroundColor: "white" }}>
-//       <Tab.Screen
-//         name="Tuner"
-//         component={tunerScreen}
-//         options={{
-//           tabBarLabel: "Tuner",
-//           tabBarIcon: ({ color }) => (
-//             <MaterialCommunityIcons name="home" color="red" size={26} />
-//           ),
-//         }}
-//       />
+function MyTabs() {
+  return (
+    
+    <Tab.Navigator activeColor="#000" barStyle={{ backgroundColor: "white" }}>
+     <Tab.Screen
+      name="Tuner"
+        component={TunerScreen}
+         options={{
+           tabBarLabel: "Home",
+           tabBarIcon: ({ color }) => (
+             <MaterialCommunityIcons name="home" color="black" size={26} />
+           ),
+         }}
+       />
 
-//       <Tab.Screen
-//         name="Beats"
-//         component={BeatsScreen}
-//         options={{
-//           tabBarLabel: "Beats",
-//           tabBarIcon: ({ color }) => (
-//             <MaterialCommunityIcons name="blur-radial" color="red" size={26} />
-//           ),
-//         }}
-//       />
+       <Tab.Screen
+         name="Beats"
+         component={BeatsScreen}
+         options={{
+           tabBarLabel: "Beats",
+           tabBarIcon: ({ color }) => (
+             <MaterialCommunityIcons name="blur-radial" color="black" size={26} />
+          ),
+         }}
+       />
 
-//       <Tab.Screen
-//         name="Disarmonicita'"
-//         component={Inharmonicity}
-//         options={{
-//           tabBarLabel: "Disarmonicita'",
-//           tabBarIcon: ({ color }) => (
-//             <MaterialCommunityIcons name="cog" color="red" size={26} />
-//           ),
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
+       <Tab.Screen
+         name="Disarmonicita'"
+         component={Inharmonicity}
+         options={{
+           tabBarLabel: "Parameters",
+           tabBarIcon: ({ color }) => (
+             <MaterialCommunityIcons name="cog" color="black" size={26} />
+           ),
+         }}
+      />
+    </Tab.Navigator>
+
+    
+   
+    
+  );
+ }
 export default class App extends Component {
   /** Quando il componente viene montato */
   async componentDidMount() {
@@ -96,6 +109,8 @@ export default class App extends Component {
     }
 
     /** Nuova istanza di Tuner */
+    
+    
     const tuner = new Tuner();
     tuner.start();
     tuner.onNoteDetected = (note) => {
@@ -107,6 +122,10 @@ export default class App extends Component {
     };
   }
 
+  //Stop registrazione
+  _stop(){
+    tuner.stop();
+  }
   /** Con il dispatch mandiamo il comando di cambiare lo stato. */
   _update(note) {
     store.dispatch({ type: "changeNote", value: note });
@@ -115,15 +134,24 @@ export default class App extends Component {
   /** Il provider contiene lo store e i componenti figli possono vederlo. */
   render() {
     return (
-      <View style={style.headerStyle}>
-        <Provider store={store}>
-          <TunerScreen />
-        </Provider>
-      </View>
-
-      // <NavigationContainer>
-      //   <MyTabs />
-      // </NavigationContainer>
+  
+          <NavigationContainer>
+              <Button onPress={this._stop}
+              title="Stop">
+                <View style={style.body}>
+                  <Text >Press here</Text>
+                </View>
+              </Button>
+              <Provider store={store}>
+                
+                <MyTabs/> 
+              
+              </Provider>
+        
+          </NavigationContainer>
+        
     );
   }
 }
+
+

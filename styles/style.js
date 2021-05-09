@@ -1,13 +1,16 @@
 import { StyleSheet } from "react-native";
 
-const style = StyleSheet.create({
+export const style = StyleSheet.create({
   body: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  headerStyle: {
     backgroundColor: "white",
+  },
+
+
+  headerStyle: {
+    backgroundColor: "black",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

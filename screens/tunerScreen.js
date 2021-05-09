@@ -16,9 +16,9 @@ import { connect } from "react-redux";
 class TunerScreen extends Component {
   render() {
     return (
-      <View>
+      <View style={style.body}>
         <StatusBar backgroundColor="#fff" translucent />
-        <Meter cents={this.props.note.cents} />
+        <Meter style={style.meter} cents={this.props.note.cents} />
         <Note {...this.props.note} />
         <Text style={style.frequency}>
           {this.props.note.frequency.toFixed(1)} Hz
