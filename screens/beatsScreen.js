@@ -7,11 +7,16 @@ import {
   StyleSheet,
 } from "react-native";
 import style from "../styles/style";
+
+
 export default class Beats extends Component {
+
+
+
   render() {
     return (
       <View style={style.body}>
-        <TouchableOpacity></TouchableOpacity>
+      
       </View>
     );
   }

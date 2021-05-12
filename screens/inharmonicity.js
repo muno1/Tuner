@@ -13,6 +13,7 @@ class Inputs extends Component {
     this.state = { frequency: "" };
     this.state = { length: "" };
     this.state = { diameter: "" };
+    this.cal = {calculation: ""};
   }
 
   /*state = {

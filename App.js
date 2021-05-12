@@ -22,7 +22,7 @@ import Tuner from "./src/tuner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Switch, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 
@@ -99,6 +99,13 @@ function MyTabs() {
   );
  }
 export default class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {showTuner: false}
+  }
+  
+  
   /** Quando il componente viene montato */
   async componentDidMount() {
     /*  Permessi di registrazione android */
@@ -107,9 +114,10 @@ export default class App extends Component {
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
       ]);
     }
+  }
 
+  componentDidUpdate(){
     /** Nuova istanza di Tuner */
-    
     
     const tuner = new Tuner();
     tuner.start();
@@ -131,25 +139,41 @@ export default class App extends Component {
     store.dispatch({ type: "changeNote", value: note });
   }
 
+  _onPress=()=>{
+    this.setState({showTuner:!this.state.showTuner})
+  }
+
   /** Il provider contiene lo store e i componenti figli possono vederlo. */
   render() {
+
+
     return (
   
           <NavigationContainer>
-              <Button onPress={this._stop}
-              title="Stop">
-                <View style={style.body}>
-                  <Text >Press here</Text>
-                </View>
-              </Button>
-              <Provider store={store}>
+                        <TouchableOpacity
+                        style={style.button}
+                        onPress={this._onPress}>
+                          <Text>
+                            Start
+                          </Text>
+                        </TouchableOpacity>              
+
+             {this.state.showTuner &&<Content/>}
+            
+           </NavigationContainer>
+    );
+  }
+}
+
+export class Content extends Component{
+  render()
+  {
+    return( 
+             <Provider store={store}>
                 
                 <MyTabs/> 
               
-              </Provider>
-        
-          </NavigationContainer>
-        
+              </Provider>    
     );
   }
 }

@@ -7,6 +7,11 @@ export const style = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
+  button: {
+    alignItems: "center",
+    backgroundColor: "grey",
+    padding: 10
+  },
 
 
   headerStyle: {
