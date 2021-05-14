@@ -22,7 +22,6 @@ import Tuner from "./src/tuner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 
@@ -100,11 +99,7 @@ function MyTabs() {
  }
 export default class App extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {showTuner: false}
-  }
-  
+ 
   
   /** Quando il componente viene montato */
   async componentDidMount() {
@@ -139,43 +134,21 @@ export default class App extends Component {
     store.dispatch({ type: "changeNote", value: note });
   }
 
-  _onPress=()=>{
-    this.setState({showTuner:!this.state.showTuner})
-  }
+ 
 
   /** Il provider contiene lo store e i componenti figli possono vederlo. */
   render() {
 
 
     return (
-  
-          <NavigationContainer>
-                        <TouchableOpacity
-                        style={style.button}
-                        onPress={this._onPress}>
-                          <Text>
-                            Start
-                          </Text>
-                        </TouchableOpacity>              
-
-             {this.state.showTuner &&<Content/>}
+      <NavigationContainer>
+           <Provider store={store}>
+                
+                <MyTabs/> 
+              
+              </Provider> 
             
            </NavigationContainer>
     );
   }
 }
-
-export class Content extends Component{
-  render()
-  {
-    return( 
-             <Provider store={store}>
-                
-                <MyTabs/> 
-              
-              </Provider>    
-    );
-  }
-}
-
-
