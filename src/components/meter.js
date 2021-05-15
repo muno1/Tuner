@@ -9,7 +9,7 @@ export default class Meter extends PureComponent {
   componentDidUpdate() {
     Animated.timing(this.state.cents, {
       toValue: this.props.cents,
-      duration: 70,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   }
@@ -51,8 +51,6 @@ const style = StyleSheet.create({
     height: 200,
     marginBottom: 40,
     marginLeft: 40,
-    
-
   },
   origin: {
     position: "absolute",
@@ -70,7 +68,7 @@ const style = StyleSheet.create({
   },
   scale: {
     position: "absolute",
-    textAlign:"center",
+    textAlign: "center",
     left: 0,
     right: 0,
     width: 1,
@@ -82,7 +80,6 @@ const style = StyleSheet.create({
   strong: {
     width: 2,
     borderTopWidth: 20,
-    
   },
   scale_1: {
     transform: [{ rotate: "-9deg" }],

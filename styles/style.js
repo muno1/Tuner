@@ -7,12 +7,6 @@ export const style = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  button: {
-    alignItems: "center",
-    backgroundColor: "grey",
-    padding: 10
-  },
-
 
   headerStyle: {
     backgroundColor: "black",
@@ -23,6 +17,10 @@ export const style = StyleSheet.create({
   frequency: {
     fontSize: 28,
     color: "#37474f",
+  },
+
+  btn: {
+    alignItems: "flex-end",
   },
 });
 

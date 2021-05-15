@@ -1,9 +1,5 @@
-
 import Recording from "react-native-recording";
 import PitchFinder from "pitchfinder";
-
-
-
 
 export default class Tuner {
   middleA = 440;
@@ -50,9 +46,8 @@ export default class Tuner {
     });
   }
 
-  stop(){
+  stop() {
     Recording.stop();
-    listener.removeEventListener();
   }
 
   /**
