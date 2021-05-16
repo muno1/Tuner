@@ -13,7 +13,7 @@ class Inputs extends Component {
     this.state = { frequency: "" };
     this.state = { length: "" };
     this.state = { diameter: "" };
-    this.cal = {calculation: ""};
+    this.cal = { calculation: "" };
   }
 
   /*state = {
@@ -73,6 +73,14 @@ class Inputs extends Component {
           onChangeText={(diameter) => this.setState({ diameter })}
         />
 
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid="transparent"
+          placeholder="Densità (kg/m3)"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          onChangeText={(diameter) => this.setState({ diameter })}
+        />
         <TouchableOpacity
           style={styles.submitButton}
           onPress={() =>
@@ -93,14 +101,14 @@ export default Inputs;
 
 const styles = StyleSheet.create({
   body: {
-    flex:1,
+    flex: 1,
     paddingTop: 50,
-    backgroundColor:"white",
+    backgroundColor: "white",
   },
   input: {
     margin: 15,
     height: 40,
-    
+
     borderWidth: 1,
     borderRadius: 10,
     borderWidth: 1,

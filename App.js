@@ -1,24 +1,12 @@
 import React, { Component, useState } from "react";
 import redux, { createStore } from "redux";
-import { useSelector } from "react-redux";
-import {
-  View,
-  Button,
-  Text,
-  StatusBar,
-  StyleSheet,
-  PermissionsAndroid,
-  NavigatorIOS,
-} from "react-native";
-/** Foglio di stile */
-import style from "./styles/style";
+import { PermissionsAndroid } from "react-native";
 
 import TunerScreen from "./screens/tunerScreen";
 import Inharmonicity from "./screens/inharmonicity";
 import BeatsScreen from "./screens/beatsScreen";
 
 import { Provider } from "react-redux";
-import TabScreen from "./screens/tabScreen";
 import Tuner from "./src/tuner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -33,7 +21,7 @@ const initialState = {
     octave: 4,
     frequency: 440,
   },
-  tunerSwitch: true,
+  tunerSwitch: false,
 };
 
 /** Reducer
@@ -44,6 +32,7 @@ const noteReducer = (state = initialState, action) => {
   switch (action.type) {
     case "changeNote":
       return { ...state, note: action.value };
+    // Stato del tuner (avviato o no)
     case "SWITCH":
       return { ...state, tunerSwitch: !state.tunerSwitch };
 
@@ -61,7 +50,10 @@ function MyTabs() {
     <Tab.Navigator activeColor="#000" barStyle={{ backgroundColor: "white" }}>
       <Tab.Screen
         name="Tuner"
-        component={TunerScreen}
+        children={() => (
+          // Passiamo al TunerScreen il tuner come props.
+          <TunerScreen tuner={tuner} />
+        )}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -98,6 +90,7 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
+const tuner = new Tuner();
 export default class App extends Component {
   /** Quando il componente viene montato */
   async componentDidMount() {
@@ -109,8 +102,6 @@ export default class App extends Component {
     }
     /** Nuova istanza di Tuner */
 
-    const tuner = new Tuner();
-    tuner.start();
     /** Con il dispatch mandiamo il comando di cambiare lo stato. */
     tuner.onNoteDetected = (note) => {
       if (this._lastNoteName === note.name) {
