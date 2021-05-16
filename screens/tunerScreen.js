@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import Note from "../src/components/note";
 import Meter from "../src/components/meter";
-import { View, Text, StatusBar, Button } from "react-native";
+import { View, Text, StatusBar, Button, Switch } from "react-native";
 /** Foglio di stile */
 import style from "../styles/style";
 import { connect } from "react-redux";
@@ -21,30 +21,27 @@ class TunerScreen extends Component {
         <Text style={style.frequency}>
           {this.props.note.frequency.toFixed(1)} Hz
         </Text>
-        <Button
-          style={style.btn}
-          onPress={() => {
+        <Switch
+          style={{
+            paddingTop: 50,
+            transform: [{ scaleX: 2 }, { scaleY: 2 }],
+          }}
+          value={this.props.tunerSwitch}
+          onValueChange={() => {
             // Se il tuner è attivo
             if (this.props.tunerSwitch) {
               // Si stoppa il tuner
               this.props.tuner.stop();
               // Dispatch per cambiare lo stato di tunerSwitch a true
               this.props.startAndStop();
-              // Cambio il bottone a 'stop'
-              btnName = "Start";
             } else {
               // Se il tuner non è attivo
               // Parte il tuner
               this.props.tuner.start();
               // Dispatch per cambiare lo stato di tunerSwitch a true
               this.props.startAndStop();
-              // Cambio il bottone a 'stop'
-              btnName = "Stop";
             }
           }}
-          title={btnName}
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
         />
       </View>
     );

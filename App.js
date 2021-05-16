@@ -64,7 +64,10 @@ function MyTabs() {
 
       <Tab.Screen
         name="Beats"
-        component={BeatsScreen}
+        children={() => (
+          // Passiamo al TunerScreen il tuner come props.
+          <BeatsScreen tuner={tuner} />
+        )}
         options={{
           tabBarLabel: "Beats",
           tabBarIcon: ({ color }) => (
@@ -123,3 +126,5 @@ export default class App extends Component {
     );
   }
 }
+
+beatsCalc = (val1, val2) => {};

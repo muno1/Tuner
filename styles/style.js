@@ -8,6 +8,7 @@ export const style = StyleSheet.create({
     backgroundColor: "white",
   },
 
+  bodyBeats: { flex: 1, flexDirection: "row" },
   headerStyle: {
     backgroundColor: "black",
     flex: 1,
