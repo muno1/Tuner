@@ -33,7 +33,7 @@ const initialState = {
     octave: 4,
     frequency: 440,
   },
-  tunerSwitch: true,  
+  tunerSwitch: false,  
 };
 
 /** Reducer
@@ -62,7 +62,11 @@ function MyTabs() {
     <Tab.Navigator activeColor="#000" barStyle={{ backgroundColor: "white" }}>
       <Tab.Screen
         name="Tuner"
-        component={TunerScreen}
+        children={() => (
+          // Passiamo al TunerScreen il tuner come props.
+          <TunerScreen tuner={tuner} />
+        )}
+        
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -73,7 +77,10 @@ function MyTabs() {
 
       <Tab.Screen
         name="Beats"
-        component={BeatsScreen}
+        children={() => (
+          // Passiamo al TunerScreen il tuner come props.
+          <BeatsScreen tuner={tuner} />
+        )}   
         options={{
           tabBarLabel: "Beats",
           tabBarIcon: ({ color }) => (
@@ -99,6 +106,7 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
+const tuner = new Tuner();
 export default class App extends Component {
   /** Quando il componente viene montato */
   async componentDidMount() {
@@ -108,11 +116,7 @@ export default class App extends Component {
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
       ]);
     }
-    /** Nuova istanza di Tuner */
-
-   
-    const tuner = new Tuner();
-    tuner.start();
+    
     /** Con il dispatch mandiamo il comando di cambiare lo stato. */
     tuner.onNoteDetected = (note) => {
       if (this._lastNoteName === note.name) {
