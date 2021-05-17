@@ -1,12 +1,24 @@
 import React, { Component, useState } from "react";
 import redux, { createStore } from "redux";
-import { PermissionsAndroid } from "react-native";
+import { useSelector } from "react-redux";
+import {
+  View,
+  Button,
+  Text,
+  StatusBar,
+  StyleSheet,
+  PermissionsAndroid,
+  NavigatorIOS,
+} from "react-native";
+/** Foglio di stile */
+import style from "./styles/style";
 
 import TunerScreen from "./screens/tunerScreen";
 import Inharmonicity from "./screens/inharmonicity";
 import BeatsScreen from "./screens/beatsScreen";
 
 import { Provider } from "react-redux";
+import TabScreen from "./screens/tabScreen";
 import Tuner from "./src/tuner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -21,7 +33,7 @@ const initialState = {
     octave: 4,
     frequency: 440,
   },
-  tunerSwitch: false,
+  tunerSwitch: true,  
 };
 
 /** Reducer
@@ -32,7 +44,6 @@ const noteReducer = (state = initialState, action) => {
   switch (action.type) {
     case "changeNote":
       return { ...state, note: action.value };
-    // Stato del tuner (avviato o no)
     case "SWITCH":
       return { ...state, tunerSwitch: !state.tunerSwitch };
 
@@ -44,16 +55,14 @@ const noteReducer = (state = initialState, action) => {
 /** Creazione dello stato dell'app. */
 let store = createStore(noteReducer);
 
+
 /*  Tabs of screen */
 function MyTabs() {
   return (
     <Tab.Navigator activeColor="#000" barStyle={{ backgroundColor: "white" }}>
       <Tab.Screen
         name="Tuner"
-        children={() => (
-          // Passiamo al TunerScreen il tuner come props.
-          <TunerScreen tuner={tuner} />
-        )}
+        component={TunerScreen}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -64,10 +73,7 @@ function MyTabs() {
 
       <Tab.Screen
         name="Beats"
-        children={() => (
-          // Passiamo al TunerScreen il tuner come props.
-          <BeatsScreen tuner={tuner} />
-        )}
+        component={BeatsScreen}
         options={{
           tabBarLabel: "Beats",
           tabBarIcon: ({ color }) => (
@@ -93,7 +99,6 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
-const tuner = new Tuner();
 export default class App extends Component {
   /** Quando il componente viene montato */
   async componentDidMount() {
@@ -105,6 +110,9 @@ export default class App extends Component {
     }
     /** Nuova istanza di Tuner */
 
+   
+    const tuner = new Tuner();
+    tuner.start();
     /** Con il dispatch mandiamo il comando di cambiare lo stato. */
     tuner.onNoteDetected = (note) => {
       if (this._lastNoteName === note.name) {
@@ -126,5 +134,3 @@ export default class App extends Component {
     );
   }
 }
-
-beatsCalc = (val1, val2) => {};
