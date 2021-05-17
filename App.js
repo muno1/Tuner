@@ -33,7 +33,7 @@ const initialState = {
     octave: 4,
     frequency: 440,
   },
-  tunerSwitch: false,  
+  tunerSwitch: false,
 };
 
 /** Reducer
@@ -55,7 +55,6 @@ const noteReducer = (state = initialState, action) => {
 /** Creazione dello stato dell'app. */
 let store = createStore(noteReducer);
 
-
 /*  Tabs of screen */
 function MyTabs() {
   return (
@@ -66,7 +65,6 @@ function MyTabs() {
           // Passiamo al TunerScreen il tuner come props.
           <TunerScreen tuner={tuner} />
         )}
-        
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
@@ -79,8 +77,8 @@ function MyTabs() {
         name="Beats"
         children={() => (
           // Passiamo al TunerScreen il tuner come props.
-          <BeatsScreen tuner={tuner} />
-        )}   
+          <BeatsScreen beatsCalc={beatsCalc} />
+        )}
         options={{
           tabBarLabel: "Beats",
           tabBarIcon: ({ color }) => (
@@ -116,7 +114,7 @@ export default class App extends Component {
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
       ]);
     }
-    
+
     /** Con il dispatch mandiamo il comando di cambiare lo stato. */
     tuner.onNoteDetected = (note) => {
       if (this._lastNoteName === note.name) {
@@ -138,3 +136,36 @@ export default class App extends Component {
     );
   }
 }
+
+/**
+ * RatioChoosen
+ * 0 : Terza
+ * 2 : Quarta
+ * 2 : Quinta
+ * 3 : Ottava
+ */
+beatsCalc = (_firstNote, _secondNote, _ratioChoosen) => {
+  let ratio = [0, 0];
+  let beats = 0;
+
+  switch (_ratioChoosen) {
+    case 0:
+      ratio = [5, 4];
+      break;
+    case 1:
+      ratio = [4, 3];
+      break;
+    case 2:
+      ratio = [3, 2];
+      break;
+    case 3:
+      ratio = [2, 1];
+      break;
+
+    default:
+      ratio = [1, 1];
+  }
+
+  beats = _firstNote.frequency * ratio[0] - _secondNote.frequency * ratio[1];
+  return Math.abs(beats.toFixed(2));
+};
