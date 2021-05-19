@@ -81,14 +81,14 @@ function TextInputs() {
 }
 
 function Do1({ navigation }) {
-  // const { handleFrequency, handleLength, handleDiameter, handleDensity } =
-  //   React.useContext(MyContext);
+  const { inharmonicityCalc } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
       <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
+          inharmonicityCalc();
           navigation.navigate("Do2");
         }}
       >
@@ -208,6 +208,7 @@ class Inputs extends Component {
           handleLength: this.handleLength,
           handleDiameter: this.handleDiameter,
           handleDensity: this.handleDensity,
+          inharmonicityCalc: this.props.inharmonicityCalc,
         }}
       >
         <Stack.Navigator initialRouteName="Home">

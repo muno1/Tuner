@@ -94,7 +94,6 @@ function MyTabs() {
       <Tab.Screen
         name="Disarmonicita'"
         children={() => (
-          // Passiamo al TunerScreen il tuner come props.
           <Inharmonicity
             inharmonicityCalc={inharmonicityCalc}
             inharmonicitySave={inharmonicitySave}
@@ -176,6 +175,9 @@ beatsCalc = (_firstNote, _secondNote, _ratioChoosen) => {
   return Math.abs(beats.toFixed(2));
 };
 
-inharmonicityCalc = () => {};
+inharmonicityCalc = (stringInfo) => {
+  console.log("ciao");
+  return 0;
+};
 
 inharmonicitySave = () => {};
