@@ -6,7 +6,6 @@ import { View, Text, StatusBar, Button, Switch } from "react-native";
 import style from "../styles/style";
 import { connect } from "react-redux";
 
-let btnName = "Start";
 class TunerScreen extends Component {
   constructor(props) {
     super(props);
