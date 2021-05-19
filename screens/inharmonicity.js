@@ -81,14 +81,14 @@ function TextInputs() {
 }
 
 function Do1({ navigation }) {
-  const { inharmonicityCalc } = React.useContext(MyContext);
+  const { inharmonicityCalc, state } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
       <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicityCalc();
+          inharmonicityCalc(state);
           navigation.navigate("Do2");
         }}
       >
@@ -200,7 +200,7 @@ class Inputs extends Component {
   };
 */
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     return (
       <MyContext.Provider
         value={{
@@ -209,6 +209,7 @@ class Inputs extends Component {
           handleDiameter: this.handleDiameter,
           handleDensity: this.handleDensity,
           inharmonicityCalc: this.props.inharmonicityCalc,
+          state: this.state,
         }}
       >
         <Stack.Navigator initialRouteName="Home">

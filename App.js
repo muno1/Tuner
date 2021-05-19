@@ -176,7 +176,7 @@ beatsCalc = (_firstNote, _secondNote, _ratioChoosen) => {
 };
 
 inharmonicityCalc = (stringInfo) => {
-  console.log("ciao");
+  console.log(stringInfo);
   return 0;
 };
 
