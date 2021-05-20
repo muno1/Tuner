@@ -19,7 +19,7 @@ class BeatsScreen extends Component {
       // Elemento selezionato dal picker
       selectedItem: 0,
       // Elementi del picker
-      itemList: ["Terza", "Quarta", "Quinta", "Ottava"],
+      itemList: ["Terza", "Quarta", "Quinta", "Ottava", "Prima"],
     };
   }
   beatsUpdate = () => {
@@ -51,13 +51,6 @@ class BeatsScreen extends Component {
                 {this.state.firstNote.frequency.toFixed(1)} Hz
               </Text>
               {
-                /* <Button
-                title="OK"
-                onPress={() => {
-                  // Salviamo la nota sullo stato.
-                  this.state.firstNoteSelected = true;
-                }}
-              /> */
                 <Switch
                   style={{
                     paddingTop: 50,
