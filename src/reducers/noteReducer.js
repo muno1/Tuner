@@ -26,6 +26,8 @@ const noteReducer = (state = initialState, action) => {
     case "SWITCH":
       return { ...state, tunerSwitch: !state.tunerSwitch };
 
+    case "changeInharmonicity":
+      return { ...state, inharmonicity: action.value };
     default:
       return state;
   }

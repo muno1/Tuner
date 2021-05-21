@@ -30,9 +30,6 @@ import beatsCalc from "./src/beats";
 /** Tab */
 const Tab = createMaterialBottomTabNavigator();
 
-/** Creazione dello stato dell'app. */
-//let store = createStore(noteReducer);
-
 /** Redux Persist */
 const persistConfig = {
   key: "root",
@@ -40,7 +37,11 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, noteReducer);
+
+/** Creazione dello stato dell'app. */
 const store = createStore(persistedReducer);
+
+const persistedStore = persistStore(store);
 /** Creiamo l'oggetto Tuner */
 const tuner = new Tuner();
 
@@ -66,10 +67,13 @@ export default class App extends Component {
 
   /** Il provider contiene lo store e i componenti figli possono vederlo. */
   render() {
+    console.log(store.getState());
     return (
       <NavigationContainer>
         <Provider store={store}>
-          <MyTabs />
+          <PersistGate loading={null} persistor={persistedStore}>
+            <MyTabs />
+          </PersistGate>
         </Provider>
       </NavigationContainer>
     );
@@ -131,9 +135,19 @@ function MyTabs() {
   );
 }
 
-inharmonicityCalc = (stringInfo) => {
+inharmonicityCalc = (stringInfo, octave) => {
   console.log(stringInfo);
-  return 0;
+  let inharmonicity = 0;
+  inharmonicity =
+    (Math.pow(stringInfo.diameter, 2) /
+      Math.pow(stringInfo.vibrantPart, 4) /
+      Math.pow(stringInfo.frequency, 2)) *
+    stringInfo.elasticityConst;
+  return inharmonicity;
 };
 
-inharmonicitySave = () => {};
+inharmonicitySave = (_inharmonicity) => {
+  store.dispatch({ type: "changeInharmonicity", value: _inharmonicity });
+};
+
+// 0,00308641975308641975308641975309

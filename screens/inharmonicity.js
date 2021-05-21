@@ -10,6 +10,13 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+let inharmonicity = {
+  Do1: 0,
+  Do2: 0,
+  Do3: 0,
+  Do4: 0,
+  Do5: 0,
+};
 function Home({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -25,8 +32,14 @@ function Home({ navigation }) {
 }
 
 function TextInputs() {
-  const { handleFrequency, handleLength, handleDiameter, handleDensity } =
-    React.useContext(MyContext);
+  const {
+    handleFrequency,
+    handleLength,
+    handleDiameter,
+    handleDensity,
+    handleVibrantPart,
+    handleElasticityConst,
+  } = React.useContext(MyContext);
   return (
     <View>
       <TextInput
@@ -76,6 +89,28 @@ function TextInputs() {
           handleDensity(parseInt(density));
         }}
       />
+      <TextInput
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        placeholder="Vibrant Part"
+        placeholderTextColor="#000"
+        autoCapitalize="none"
+        keyboardType="numeric"
+        onChangeText={(vibrantPart) => {
+          handleVibrantPart(parseInt(vibrantPart));
+        }}
+      />
+      <TextInput
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        placeholder="Elasticity Constant"
+        placeholderTextColor="#000"
+        autoCapitalize="none"
+        keyboardType="numeric"
+        onChangeText={(elasticityConst) => {
+          handleElasticityConst(parseInt(elasticityConst));
+        }}
+      />
     </View>
   );
 }
@@ -88,7 +123,7 @@ function Do1({ navigation }) {
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicityCalc(state);
+          inharmonicity.Do1 = inharmonicityCalc(state);
           navigation.navigate("Do2");
         }}
       >
@@ -99,12 +134,16 @@ function Do1({ navigation }) {
 }
 
 function Do2({ navigation }) {
+  const { inharmonicityCalc, state } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
       <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate("Do3")}
+        onPress={() => {
+          inharmonicity.Do2 = inharmonicityCalc(state);
+          navigation.navigate("Do3");
+        }}
       >
         <Text style={styles.submitButtonText}> Calculate </Text>
       </TouchableOpacity>
@@ -113,12 +152,16 @@ function Do2({ navigation }) {
 }
 
 function Do3({ navigation }) {
+  const { inharmonicityCalc, state } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
       <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate("Do4")}
+        onPress={() => {
+          inharmonicity.Do3 = inharmonicityCalc(state);
+          navigation.navigate("Do4");
+        }}
       >
         <Text style={styles.submitButtonText}> Calculate </Text>
       </TouchableOpacity>
@@ -127,11 +170,16 @@ function Do3({ navigation }) {
 }
 
 function Do4({ navigation }) {
+  const { inharmonicityCalc, state } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
+      <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate("Do5")}
+        onPress={() => {
+          inharmonicity.Do4 = inharmonicityCalc(state);
+          navigation.navigate("Do5");
+        }}
       >
         <Text style={styles.submitButtonText}> Calculate </Text>
       </TouchableOpacity>
@@ -140,11 +188,17 @@ function Do4({ navigation }) {
 }
 
 function Do5({ navigation }) {
+  const { inharmonicityCalc, state } = React.useContext(MyContext);
   return (
     <View style={styles.body}>
+      <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => {
+          inharmonicity.Do5 = inharmonicityCalc(state);
+          inharmonicitySave(inharmonicity);
+          navigation.navigate("Home");
+        }}
       >
         <Text style={styles.submitButtonText}> Calculate </Text>
       </TouchableOpacity>
@@ -162,12 +216,12 @@ class Inputs extends Component {
       length: 0,
       diameter: 0,
       density: 0,
-      calculation: 0,
+      vibrantPart: 0,
+      elasticityConst: 0,
     };
   }
 
   handleFrequency = (_freq) => {
-    console.log("ciao");
     this.setState({ frequency: _freq });
   };
   handleLength = (_length) => {
@@ -178,6 +232,12 @@ class Inputs extends Component {
   };
   handleDensity = (_density) => {
     this.setState({ density: _density });
+  };
+  handleVibrantPart = (_vibrantPart) => {
+    this.setState({ vibrantPart: _vibrantPart });
+  };
+  handleElasticityConst = (_elasticityConst) => {
+    this.setState({ elasticityConst: _elasticityConst });
   };
   /* alg = (frequency, length, diameter) => {
     alert(
@@ -200,7 +260,7 @@ class Inputs extends Component {
   };
 */
   render() {
-    //console.log(this.state);
+    console.log(this.state);
     return (
       <MyContext.Provider
         value={{
@@ -208,7 +268,10 @@ class Inputs extends Component {
           handleLength: this.handleLength,
           handleDiameter: this.handleDiameter,
           handleDensity: this.handleDensity,
+          handleVibrantPart: this.handleVibrantPart,
+          handleElasticityConst: this.handleElasticityConst,
           inharmonicityCalc: this.props.inharmonicityCalc,
+          inharmonicitySave: this.props.inharmonicitySave,
           state: this.state,
         }}
       >
