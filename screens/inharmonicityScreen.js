@@ -7,26 +7,18 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-let inharmonicity = {
-  Do1: 0,
-  Do2: 0,
-  Do3: 0,
-  Do4: 0,
-  Do5: 0,
-};
+let inharmonicity = [0, 0, 0, 0, 0];
 function Home({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      <TouchableOpacity
+    <View style={{ flex: 1 }}>
+      <Text>Calcolo delle Disarmonicita</Text>
+      <Button
         style={styles.submitButton}
         onPress={() => navigation.navigate("Do1")}
-      >
-        <Text style={styles.submitButtonText}>Start</Text>
-      </TouchableOpacity>
+        title="Start"
+      />
     </View>
   );
 }
@@ -123,7 +115,7 @@ function Do1({ navigation }) {
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicity.Do1 = inharmonicityCalc(state);
+          inharmonicity[0] = inharmonicityCalc(state);
           navigation.navigate("Do2");
         }}
       >
@@ -141,7 +133,7 @@ function Do2({ navigation }) {
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicity.Do2 = inharmonicityCalc(state);
+          inharmonicity[1] = inharmonicityCalc(state);
           navigation.navigate("Do3");
         }}
       >
@@ -159,7 +151,7 @@ function Do3({ navigation }) {
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicity.Do3 = inharmonicityCalc(state);
+          inharmonicity[2] = inharmonicityCalc(state);
           navigation.navigate("Do4");
         }}
       >
@@ -177,7 +169,7 @@ function Do4({ navigation }) {
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicity.Do4 = inharmonicityCalc(state);
+          inharmonicity[3] = inharmonicityCalc(state);
           navigation.navigate("Do5");
         }}
       >
@@ -188,14 +180,15 @@ function Do4({ navigation }) {
 }
 
 function Do5({ navigation }) {
-  const { inharmonicityCalc, state } = React.useContext(MyContext);
+  const { inharmonicityCalc, inharmonicitySave, state } =
+    React.useContext(MyContext);
   return (
     <View style={styles.body}>
       <TextInputs />
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
-          inharmonicity.Do5 = inharmonicityCalc(state);
+          inharmonicity[4] = inharmonicityCalc(state);
           inharmonicitySave(inharmonicity);
           navigation.navigate("Home");
         }}
@@ -239,28 +232,8 @@ class Inputs extends Component {
   handleElasticityConst = (_elasticityConst) => {
     this.setState({ elasticityConst: _elasticityConst });
   };
-  /* alg = (frequency, length, diameter) => {
-    alert(
-      "frequenza: " +
-        frequency +
-        " lunghezza: " +
-        length +
-        "diametro" +
-        diameter
-    );
-  };
-*/
-  /* algorithm = () => {
-    var f = this.state.frequency;
-    var l = this.state.length;
-    var d = this.state.diameter;
-    var cal = f * l * d;
 
-    alert(cal);
-  };
-*/
   render() {
-    console.log(this.state);
     return (
       <MyContext.Provider
         value={{
@@ -279,7 +252,7 @@ class Inputs extends Component {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ title: "Start" }}
+            options={{ title: "Disarmonicità" }}
           />
           <Stack.Screen name="Do1" component={Do1} options={{ title: "Do1" }} />
           <Stack.Screen name="Do2" component={Do2} options={{ title: "Do2" }} />

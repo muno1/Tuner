@@ -2,17 +2,13 @@
 const initialState = {
   note: {
     name: "A",
+    value: 69,
     octave: 4,
     frequency: 440,
   },
+  middleA: 440,
   tunerSwitch: false,
-  inharmonicity: {
-    Do1: 0,
-    Do2: 0,
-    Do3: 0,
-    Do4: 0,
-    Do5: 0,
-  },
+  inharmonicity: [0, 0, 0, 0, 0, 0, 0, 0],
 };
 
 /** Reducer
@@ -23,9 +19,14 @@ const noteReducer = (state = initialState, action) => {
   switch (action.type) {
     case "changeNote":
       return { ...state, note: action.value };
+    case "resetNote":
+      return { ...state, note: { frequency: 440, name: A, octave: 4 } };
     case "SWITCH":
       return { ...state, tunerSwitch: !state.tunerSwitch };
-
+    case "switchOn":
+      return { ...state, tunerSwitch: true };
+    case "switchOff":
+      return { ...state, tunerSwitch: false };
     case "changeInharmonicity":
       return { ...state, inharmonicity: action.value };
     default:

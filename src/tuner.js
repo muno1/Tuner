@@ -1,27 +1,13 @@
 import Recording from "react-native-recording";
 import PitchFinder from "pitchfinder";
-
+import { getNote, getCents, getNoteName } from "./noteFunctions";
 export default class Tuner {
-  middleA = 440;
-  semitone = 69;
-  noteStrings = [
-    "C",
-    "C♯",
-    "D",
-    "D♯",
-    "E",
-    "F",
-    "F♯",
-    "G",
-    "G♯",
-    "A",
-    "A♯",
-    "B",
-  ];
+  middleA = 440; // Default value
 
-  constructor(sampleRate = 22050, bufferSize = 2048) {
-    this.sampleRate = sampleRate;
-    this.bufferSize = bufferSize;
+  constructor(_middleA) {
+    this.sampleRate = 22050;
+    this.bufferSize = 2048;
+    this.middleA = _middleA;
     this.pitchFinder = new PitchFinder.YIN({ sampleRate: this.sampleRate });
   }
 
@@ -34,11 +20,11 @@ export default class Tuner {
     Recording.addRecordingEventListener((data) => {
       const frequency = this.pitchFinder(data);
       if (frequency && this.onNoteDetected) {
-        const note = this.getNote(frequency);
+        const note = getNote(frequency, this.middleA);
         this.onNoteDetected({
-          name: this.noteStrings[note % 12],
+          name: getNoteName(note),
           value: note,
-          cents: this.getCents(frequency, note),
+          cents: getCents(frequency, note, this.middleA),
           octave: parseInt(note / 12) - 1,
           frequency: frequency,
         });
@@ -48,40 +34,5 @@ export default class Tuner {
 
   stop() {
     Recording.stop();
-  }
-
-  /**
-   * get musical note from frequency
-   *
-   * @param {number} frequency
-   * @returns {number}
-   */
-  getNote(frequency) {
-    const note = 12 * (Math.log(frequency / this.middleA) / Math.log(2));
-    return Math.round(note) + this.semitone;
-  }
-
-  /**
-   * get the musical note's standard frequency
-   *
-   * @param note
-   * @returns {number}
-   */
-  getStandardFrequency(note) {
-    return this.middleA * Math.pow(2, (note - this.semitone) / 12);
-  }
-
-  /**
-   * get cents difference between given frequency and musical note's standard frequency
-   *
-   * @param {float} frequency
-   * @param {int} note
-   * @returns {int}
-   */
-  getCents(frequency, note) {
-    return Math.floor(
-      (1200 * Math.log(frequency / this.getStandardFrequency(note))) /
-        Math.log(2)
-    );
   }
 }
