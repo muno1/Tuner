@@ -30,7 +30,6 @@ class BeatsScreen extends Component {
   };
 
   render() {
-    console.log("ciao");
     let flag = true;
     if (flag) {
       if (!this.state.firstNote.selected)

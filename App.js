@@ -14,6 +14,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import noteReducer from "./src/reducers/noteReducer";
 /** Navigation  */
 import { NavigationContainer } from "@react-navigation/native";
+/** React Native Screens */
+import { enableScreens } from "react-native-screens";
 
 /** Tabs */
 import Tabs from "./screens/tabs";
@@ -23,6 +25,8 @@ import beatsCalc from "./src/beats";
 import inharmonicityCalc from "./src/inharmonicity";
 
 /** --------------- FINE IMPORTS ---------------- */
+
+enableScreens(true);
 
 /** Redux Persist */
 const persistConfig = {
@@ -78,12 +82,14 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Provider store={store}>
-          <Tabs
-            handleSwitch={this.handleSwitchTuner}
-            beatsCalc={beatsCalc}
-            inharmonicityCalc={inharmonicityCalc}
-            inharmonicitySave={this.handleInharmonicitySave}
-          />
+          <PersistGate loading={null} persistor={persistedStore}>
+            <Tabs
+              handleSwitch={this.handleSwitchTuner}
+              beatsCalc={beatsCalc}
+              inharmonicityCalc={inharmonicityCalc}
+              inharmonicitySave={this.handleInharmonicitySave}
+            />
+          </PersistGate>
         </Provider>
       </NavigationContainer>
     );
