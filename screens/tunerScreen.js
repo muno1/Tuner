@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+/** Native components */
+import { View, Text, StatusBar, Switch, StyleSheet } from "react-native";
+
+/** Components */
 import Note from "../src/components/note";
 import Meter from "../src/components/meter";
-import { View, Text, StatusBar, Switch } from "react-native";
-/** Foglio di stile */
-import style from "../styles/style";
 
 /** Redux */
 import { connect } from "react-redux";
@@ -22,25 +23,30 @@ class TunerScreen extends Component {
       this.props.inharmonicity[this.props.note.octave];
     return (
       <View style={style.body}>
-        <StatusBar backgroundColor="#fff" translucent />
-        <Meter style={style.meter} cents={this.props.note.cents} />
-        <Note {...this.props.note} />
-        <Text style={style.frequency}>
-          {this.props.note.frequency.toFixed(1)} Hz
-        </Text>
-        <Text style={style.frequency}>
-          Inharmonicity: {inharmonicity.toFixed(1)} Hz
-        </Text>
-        <Switch
-          style={{
-            paddingTop: 50,
-            transform: [{ scaleX: 2 }, { scaleY: 2 }],
-          }}
-          value={this.props.tunerSwitch}
-          onValueChange={() => {
-            this.props.switchTuner();
-          }}
-        />
+        <View style={style.titleContainer}>
+          <Text style={style.title}>Tuner</Text>
+        </View>
+        <View style={style.meterContainer}>
+          <Meter style={style.meter} cents={this.props.note.cents} />
+        </View>
+        <View style={style.noteContainer}>
+          <Note {...this.props.note} />
+          <Text style={style.frequency}>
+            {this.props.note.frequency.toFixed(1)} Hz
+          </Text>
+          <Text style={style.frequency}>
+            Inharmonicity: {inharmonicity.toFixed(1)} Hz
+          </Text>
+          <Switch
+            style={{
+              transform: [{ scaleX: 1 }, { scaleY: 1 }],
+            }}
+            value={this.props.tunerSwitch}
+            onValueChange={() => {
+              this.props.switchTuner();
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -56,4 +62,55 @@ const mapStateToProps = (state) => {
   return { note, tunerSwitch, inharmonicity, middleA };
 };
 
+const style = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  titleContainer: {
+    paddingTop: 0,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    color: "black",
+    fontFamily: "Raleway-ExtraLight",
+    fontSize: 50,
+  },
+  meterContainer: {
+    flex: 1,
+    backgroundColor: "#E9C46A",
+    //backgroundColor: "white",
+    alignItems: "center",
+    paddingTop: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.48,
+    shadowRadius: 11.95,
+
+    elevation: 18,
+  },
+  noteContainer: {
+    flex: 3,
+    backgroundColor: "white",
+  },
+  shadow: {
+    shadowColor: "#292929",
+    shadowOffset: {
+      width: 0,
+      height: 100,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  frequency: {
+    fontSize: 28,
+    color: "#37474f",
+  },
+});
 export default connect(mapStateToProps)(TunerScreen);

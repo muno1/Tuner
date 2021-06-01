@@ -13,6 +13,8 @@ class BeatsScreen extends Component {
       beats: 0,
       // Prima nota
       firstNote: { name: "A", octave: 4, frequency: 440, selected: false },
+      firstNoteSelected: false,
+      secondNoteSelected: false,
       // Seconda nota
       secondNote: { name: "A", octave: 4, frequency: 440, selected: false },
       // Elemento selezionato dal picker
@@ -32,9 +34,8 @@ class BeatsScreen extends Component {
   render() {
     let flag = true;
     if (flag) {
-      if (!this.state.firstNote.selected)
-        this.state.firstNote = this.props.note;
-      if (!this.state.secondNote.selected)
+      if (!this.state.firstNoteSelected) this.state.firstNote = this.props.note;
+      if (!this.state.secondNoteSelected)
         this.state.secondNote = this.props.note;
 
       this.beatsUpdate();
@@ -53,20 +54,19 @@ class BeatsScreen extends Component {
                 <Text style={style.frequency}>
                   {this.state.firstNote.frequency.toFixed(1)} Hz
                 </Text>
-                {
-                  <Switch
-                    style={{
-                      paddingTop: 50,
-                      transform: [{ scaleX: 2 }, { scaleY: 2 }],
-                    }}
-                    value={this.state.firstNote.selected}
-                    onValueChange={() => {
-                      // Se la nota è stata selezionata
-                      this.state.firstNote.selected =
-                        !this.state.firstNote.selected;
-                    }}
-                  />
-                }
+
+                <Switch
+                  style={{
+                    paddingTop: 50,
+                    transform: [{ scaleX: 2 }, { scaleY: 2 }],
+                  }}
+                  value={this.state.firstNoteSelected}
+                  onValueChange={() => {
+                    // Se la nota è stata selezionata
+                    this.state.firstNoteSelected =
+                      !this.state.firstNoteSelected;
+                  }}
+                />
               </View>
               <View
                 style={{
@@ -84,11 +84,11 @@ class BeatsScreen extends Component {
                     paddingTop: 50,
                     transform: [{ scaleX: 2 }, { scaleY: 2 }],
                   }}
-                  value={this.state.secondNote.selected}
+                  value={this.state.secondNoteSelected}
                   onValueChange={() => {
                     // Se la nota è stata selezionata
-                    this.state.secondNote.selected =
-                      !this.state.secondNote.selected;
+                    this.state.secondNoteSelected =
+                      !this.state.secondNoteSelected;
                   }}
                 />
               </View>

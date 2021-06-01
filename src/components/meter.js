@@ -42,7 +42,7 @@ export default class Meter extends PureComponent {
           style={[
             style.circle,
             { transform: [{ translateX: cents }] },
-            { backgroundColor: "rgb(40, 255, 69)" },
+            { backgroundColor: "#009FFD" },
             { opacity: opacityInterpolate },
           ]}
         />
@@ -50,7 +50,7 @@ export default class Meter extends PureComponent {
           style={[
             style.circle,
             { transform: [{ translateX: cents2 }] },
-            { backgroundColor: "rgb(40, 255, 69)" },
+            { backgroundColor: "#009FFD" },
             { opacity: opacityInterpolate },
           ]}
         />
@@ -59,14 +59,23 @@ export default class Meter extends PureComponent {
   }
 }
 
+const size = 110;
 const style = StyleSheet.create({
   circle: {
     position: "absolute",
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    backgroundColor: "white",
+    width: size,
+    height: size,
+    borderRadius: size / 2,
+    backgroundColor: "#E9C46A",
     borderWidth: 0,
+    shadowColor: "#292929",
+    shadowOffset: {
+      width: 0,
+      height: 100,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 6,
+    elevation: 5,
   },
-  meter: { height: 200, marginBottom: 40, marginLeft: -88 },
+  meter: { marginLeft: -size },
 });

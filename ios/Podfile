@@ -21,4 +21,6 @@ target 'Tuner' do
   #  post_install do |installer|
   #    flipper_post_install(installer)
   #  end
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
 end
