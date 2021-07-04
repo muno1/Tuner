@@ -10,7 +10,7 @@ export default class Meter extends PureComponent {
     // Aggiornare l'animazione
     Animated.timing(this.state.cents, {
       toValue: this.props.cents,
-      duration: 300,
+      duration: 70,
       useNativeDriver: true,
     }).start();
   }
