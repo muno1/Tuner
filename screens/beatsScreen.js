@@ -96,7 +96,7 @@ class BeatsScreen extends Component {
           </View>
           <View
             style={{
-              flex: 1,
+              flex: 1.5,
               justifyContent: "center",
               alignItems: "center",
             }}

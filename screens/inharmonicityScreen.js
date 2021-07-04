@@ -12,7 +12,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 let inharmonicity = [0, 0, 0, 0, 0];
 function Home({ navigation }) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Calcolo delle Disarmonicita</Text>
       <Button
         style={styles.submitButton}

@@ -32,7 +32,9 @@ beatsCalc = (_firstNote, _secondNote, _ratioChoosen) => {
       ratio = [1, 1];
   }
 
-  beats = _firstNote.frequency * ratio[0] - _secondNote.frequency * ratio[1];
+  beats =
+    Math.max(_firstNote.frequency, _secondNote.frequency) * ratio[0] -
+    Math.min(_secondNote.frequency, _firstNote.frequency) * ratio[1];
   return Math.abs(beats.toFixed(2));
 };
 

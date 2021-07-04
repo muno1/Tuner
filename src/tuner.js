@@ -3,9 +3,10 @@ import PitchFinder from "pitchfinder";
 import { getNote, getCents, getNoteName } from "./noteFunctions";
 export default class Tuner {
   middleA = 440; // Default value
+  estimatedFirstHarmonic = 880;
 
   constructor(_middleA) {
-    this.sampleRate = 22050;
+    this.sampleRate = 44100;
     this.bufferSize = 2048;
     this.middleA = _middleA;
     this.pitchFinder = new PitchFinder.YIN({ sampleRate: this.sampleRate });

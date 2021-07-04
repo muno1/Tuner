@@ -34,12 +34,9 @@ class TunerScreen extends Component {
           <Text style={style.frequency}>
             {this.props.note.frequency.toFixed(1)} Hz
           </Text>
-          <Text style={style.frequency}>
-            Inharmonicity: {inharmonicity.toFixed(1)} Hz
-          </Text>
           <Switch
             style={{
-              transform: [{ scaleX: 1 }, { scaleY: 1 }],
+              transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
             }}
             value={this.props.tunerSwitch}
             onValueChange={() => {
@@ -80,23 +77,23 @@ const style = StyleSheet.create({
   },
   meterContainer: {
     flex: 1,
-    backgroundColor: "#E9C46A",
-    //backgroundColor: "white",
+    //backgroundColor: "#E9C46A",
+    backgroundColor: "white",
     alignItems: "center",
     paddingTop: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.48,
-    shadowRadius: 11.95,
-
-    elevation: 18,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 9,
+    // },
+    // shadowOpacity: 0.48,
+    // shadowRadius: 11.95,
+    //elevation: 18,
   },
   noteContainer: {
     flex: 3,
     backgroundColor: "white",
+    alignItems: "center",
   },
   shadow: {
     shadowColor: "#292929",

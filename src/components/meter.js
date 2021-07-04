@@ -66,16 +66,8 @@ const style = StyleSheet.create({
     width: size,
     height: size,
     borderRadius: size / 2,
-    backgroundColor: "#E9C46A",
+    backgroundColor: "white",
     borderWidth: 0,
-    shadowColor: "#292929",
-    shadowOffset: {
-      width: 0,
-      height: 100,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 6,
-    elevation: 5,
   },
   meter: { marginLeft: -size },
 });
