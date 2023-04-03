@@ -3,9 +3,8 @@ import { View, Text, Button, Switch } from "react-native";
 import Note from "../src/components/note";
 import { connect } from "react-redux";
 import style from "../styles/style";
-import Picker from "@gregfrench/react-native-wheel-picker";
+import WheelPicker from "@victorzimnikov/react-native-wheel-picker-android";
 
-var PickerItem = Picker.Item;
 class BeatsScreen extends Component {
   constructor(props) {
     super(props);
@@ -101,22 +100,14 @@ class BeatsScreen extends Component {
               alignItems: "center",
             }}
           >
-            <Picker
-              style={{ width: 150, height: 180 }}
-              lineColor="#000000" //to set top and bottom line color (Without gradients)
-              lineGradientColorFrom="#008000" //to set top and bottom starting gradient line color
-              lineGradientColorTo="#FF5733" //to set top and bottom ending gradient
+            <WheelPicker
               selectedValue={this.state.selectedItem}
-              itemStyle={{ color: "black", fontSize: 26 }}
-              onValueChange={(index) => {
+              onItemSelected={(selectedItem) => {
                 this.state.selectedItem = index;
                 this.beatsUpdate();
               }}
-            >
-              {this.state.itemList.map((value, i) => (
-                <PickerItem label={value} value={i} key={i} />
-              ))}
-            </Picker>
+              data={this.state.itemList.map((value, i) => value)}
+            />
             <Text style={{ fontSize: 18 }}>Battimenti: </Text>
             <Text style={{ fontSize: 80, paddingTop: 1 }}>
               {this.state.beats}

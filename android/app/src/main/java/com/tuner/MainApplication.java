@@ -43,7 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider), new WheelPickerPackage());
       return packages;
     }
 
