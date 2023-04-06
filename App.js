@@ -21,7 +21,6 @@ import { enableScreens } from "react-native-screens";
 import Tabs from "./screens/tabs";
 /** Tuner class */
 import Tuner from "./src/tuner";
-import beatsCalc from "./src/beats";
 import inharmonicityCalc from "./src/inharmonicity";
 
 /** --------------- FINE IMPORTS ---------------- */
@@ -85,7 +84,6 @@ export default class App extends Component {
           <PersistGate loading={null} persistor={persistedStore}>
             <Tabs
               handleSwitch={this.handleSwitchTuner}
-              beatsCalc={beatsCalc}
               inharmonicityCalc={inharmonicityCalc}
               inharmonicitySave={this.handleInharmonicitySave}
             />
